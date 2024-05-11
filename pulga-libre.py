@@ -165,6 +165,21 @@ class Repartidor:
             10: {"entregado": [45, 45, 22], "no_entregado": [89, 0, 0]}
         }
 
+        # Imprimir la tabla de tarifas
+        print("Zona\tMonto paquete entregado\tMonto paquete no entregado")
+        for zona, tarifas_zona in tarifas.items():
+            monto_entregado = tarifas_zona["entregado"]
+            monto_no_entregado = tarifas_zona["no_entregado"]
+            if isinstance(monto_entregado, list):
+                monto_entregado = ", ".join(str(monto) for monto in monto_entregado)
+            else:
+                monto_entregado = str(monto_entregado)
+            if isinstance(monto_no_entregado, list):
+                monto_no_entregado = ", ".join(str(monto) for monto in monto_no_entregado)
+            else:
+                monto_no_entregado = str(monto_no_entregado)
+            print(f"{zona}\t{monto_entregado}\t\t{monto_no_entregado}")
+
         for paquete in self.paquetes_entregados:
             zona = paquete.zona
             tarifa = tarifas[zona]["entregado"]
@@ -187,7 +202,7 @@ class Repartidor:
                 pago = tarifa
             self.pago_total += pago
 
-        print(f"SU PAGO ES DE: ${self.pago_total}")
+        print(f"\nSU PAGO ES DE: ${self.pago_total}")
 
 def menu():
     opciones = {
